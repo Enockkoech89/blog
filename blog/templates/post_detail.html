@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    
+  <div class="container mt-3 mb-4" >
+      <div>
+        {% if object.author == user %}
+            <a class= "btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}"> Update Post</a>
+            <a class= "btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}"> Delete Post</a>
+        {% endif %}
+      </div>
+           <!-- Media top -->
+        <div class="media">
+          <img src="{{ object.author.profile.image.url }}" class="align-self-start mr-3" style="width:30px">
+          <p>
+          <small> Author: {{ object.author }}</small>
+          <small class="text-muted">{{ object.date_posted }}</small>
+          <div>
+          </p>
+
+          
+            <h6 class="article-title">{{ object.title }}</h6>
+            <!-- <img src="{{ object.pic.url }}" class="align-self-start mr-3" style="width:500px"> -->
+            <!-- {% if post.pic %} -->
+            <img src="{{ object.pic.url }}" class="img-fluid" alt="Responsive image">
+            <!-- {% endif %} -->
+            <br><br>
+            <p class="article-content" ml="2">{{ object.content }}</p>
+            <video height="300" width="500" controls>
+            <source src="{{ object.video_vid.url }}" type="video/mp4">
+            Your browser does not support HTML5 video.
+            </video>
+
+
+            <!-- <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="{{ object.video_vid.url }}" allowfullscreen></iframe>
+            </div> -->
+
+
+          </div>
+        </div>
+  </div>
+    
+{% endblock content %}

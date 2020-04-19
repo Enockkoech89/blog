@@ -1,0 +1,21 @@
+from django.urls import reverse
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+class Post(models.Model):
+	title = models.CharField(max_length=100)
+	pic = models.ImageField(default='default.jpg', upload_to='post_pics')
+	video_vid = models.FileField(default='default.mp4', upload_to='vids')
+	content = models.TextField()
+	date_posted = models.DateTimeField(default=timezone.now)
+	author = models.ForeignKey(User, on_delete=models.CASCADE)	
+
+	def __str__(self):
+		return self.title 
+
+	def get_absolute_url(self):
+		return reverse('post-detail', kwargs={'pk': self.pk})
+
+
+ 
